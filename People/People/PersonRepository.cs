@@ -22,12 +22,18 @@ namespace People
             int result = 0;
             try
             {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new Exception("Se requiere un nombre valido");
+                }
+                result = conn.Insert(new Person { Name = name, DUI = dui });
 
+                StatusMessage = $"{result} records added [Name: {name}";
             }
-            catch (Exception)
+            catch (Exception ex )
             {
 
-                throw;
+                StatusMessage= $"Failed to add {name}. Error: {ex.Message}";
             }
         }
     }
